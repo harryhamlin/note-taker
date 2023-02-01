@@ -1,9 +1,10 @@
 const router = require(`express`).Router();
 const db = require(`../db/db.json`);
 const uniqid = require(`uniqid`);
-const fs = require(`fs`);
+
 
 router.get(`/:id`, (req, res) => {
+    console.log(`${req.method} request received to ${req.method} note id:${req.params.id}`)
     const requestedNote = parseInt(req.params.id);
 
     // Iterate through the terms name to check if it matches `req.params.term`
@@ -18,8 +19,9 @@ router.get(`/:id`, (req, res) => {
 )
 
 router.get(`/`, (req, res) => {
+    console.log(`${req.method} request received to database`);
     res.json(db)
-    console.log(`${req.method} request received to ${req.method} note`)
+
 });
 
 router.post(`/`, (req, res) => {
@@ -33,6 +35,7 @@ router.post(`/`, (req, res) => {
             text,
             noteId: uniqid()
         };
+        
         res.json(console.log(`${newNote.title} ${newNote.text} ${newNote.noteId}`))
     } else {
         res.error('Error in adding note');
