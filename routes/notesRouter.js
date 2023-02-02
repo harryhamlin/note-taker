@@ -1,6 +1,8 @@
 const router = require(`express`).Router();
 const db = require(`../db/db.json`);
 const uniqid = require(`uniqid`);
+const append = require(`../utils/write.js`);
+const { resourceLimits } = require("worker_threads");
 
 
 router.get(`/:id`, (req, res) => {
@@ -33,14 +35,18 @@ router.post(`/`, (req, res) => {
         const newNote = {
             title,
             text,
-            noteId: uniqid()
+            id: uniqid()
         };
+
+        append(newNote)
         
-        res.json(console.log(`${newNote.title} ${newNote.text} ${newNote.noteId}`))
+        res.json(console.log(`${newNote.title} ${newNote.text} ${newNote.id}`))
     } else {
         res.error('Error in adding note');
     }
 });
+
+// router.delete(`/`, (req,res))
 
 
 module.exports = router

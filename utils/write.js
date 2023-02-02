@@ -1,13 +1,21 @@
 const fs = require(`fs`);
+const path = require(`path`);
 
-// https://stackoverflow.com/questions/61473968/how-to-push-object-inside-an-array-while-writing-to-a-file-in-node-js
+const append = (data) => {
+    const dbData = JSON.parse(fs.readFileSync(path.resolve(__dirname, `../db/db.json`), (error, data) => {
+        if (error) throw error
+        else console.log('read')
+    }))
 
-// <====== start here ======>
-function append() {
-    fs.readFile('../../db/db.json', (err, data) => {
-        if (err) throw err;
-        const dataArray = data;
-        console.log(dataArray);
+
+    dbData.unshift(data)
+
+
+
+    fs.writeFileSync(path.resolve(__dirname, `../db/db.json`), JSON.stringify(dbData), (error, data) => {
+        if (error) throw error
+        else console.log('written to file')
     })
 }
-append()
+
+module.exports = append
