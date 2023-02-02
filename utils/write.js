@@ -1,14 +1,14 @@
 const fs = require(`fs`);
 const path = require(`path`);
 
-const append = (data) => {
+const append = (newData) => {
     const dbData = JSON.parse(fs.readFileSync(path.resolve(__dirname, `../db/db.json`), (error, data) => {
         if (error) throw error
         else console.log('read')
     }))
 
 
-    dbData.unshift(data)
+    dbData.unshift(newData)
 
 
 
