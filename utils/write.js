@@ -11,7 +11,7 @@ const append = (newData) => {
 
     db.unshift(newData)
 
-    fs.writeFileSync(path.resolve(__dirname, `../db/db.json`), JSON.stringify(dbData), (error, data) => {
+    fs.writeFileSync(path.resolve(__dirname, `../db/db.json`), JSON.stringify(db), (error, data) => {
         if (error) throw error
         else console.log('written to file')
     })
